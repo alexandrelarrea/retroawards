@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Retroawards - Home{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="jumbotron mt-4">
+      <h1 class="display-4">Welcome to Retroawards !</h1>
+      <p class="lead">A website that displays game achievements from <a href="http://www.retroachievements.org" target="_blank">www.retroachievements.org</a>
+      </p>
+      <hr class="my-4">
+      <p>You are welcome to sign up with your retroachievements user, your achievements will then be displayed here
+        :)</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Sign up</a>
+      </p>
+    </div>
+    
+    <h2 class="display-5 mb-4 mt-5">Latest achievements</h2>
+    
+    <div class="row">
+      {% for i in 1..12 %}
+        <div class="col-3 my-2">
+          {% include 'Achievements/_card.html.twig' %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
