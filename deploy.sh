@@ -14,8 +14,9 @@ then
 elif [ $1 == "-n" ] || [ $1 == "--dry-run" ]
 then
     echo "### Running dry run ###"
-    git status
     git fetch
+    git status
+    git log --oneline --decorate ..origin/master
     git diff --name-status ..origin/master
 else
     echo "Error : Invalid arguments"
