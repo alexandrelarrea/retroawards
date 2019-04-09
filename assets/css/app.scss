@@ -4,23 +4,23 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/spacelab/bootswatch";
 
-.achievement-card {
+.bg-image {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 .bg-layer {
   background-color: rgba(255, 255, 255, 0.8);
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-    text-shadow: 0 0 20px white;
-    .card-text,
-    .card-title {
-      color: #afafaf;
-    }
-    .card-game-title {
-      color: #5491cd !important;
-    }
+}
+.bg-layer-hover:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  text-shadow: 0 0 20px white;
+  .card-text,
+  .card-title {
+    color: #afafaf;
+  }
+  .card-game-title {
+    color: #5491cd !important;
   }
 }
 a.cleanlink {
