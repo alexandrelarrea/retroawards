@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -101,6 +103,15 @@ class Game {
    * @ORM\Column(type="datetime")
    */
   private $updatedAt;
+
+  /**
+   * @ORM\OneToMany(targetEntity="App\Entity\Achievement", mappedBy="game", orphanRemoval=true)
+   */
+  private $achievements;
+
+  public function __construct() {
+    $this->achievements = new ArrayCollection();
+  }
 
   public function getId(): ?int {
     return $this->id;
@@ -272,6 +283,34 @@ class Game {
 
   public function setUpdatedAt(\DateTimeInterface $updatedAt): self {
     $this->updatedAt = $updatedAt;
+
+    return $this;
+  }
+
+  /**
+   * @return Collection|Achievement[]
+   */
+  public function getAchievements(): Collection {
+    return $this->achievements;
+  }
+
+  public function addAchievement(Achievement $achievement): self {
+    if (! $this->achievements->contains($achievement)) {
+      $this->achievements[] = $achievement;
+      $achievement->setGame($this);
+    }
+
+    return $this;
+  }
+
+  public function removeAchievement(Achievement $achievement): self {
+    if ($this->achievements->contains($achievement)) {
+      $this->achievements->removeElement($achievement);
+      // set the owning side to null (unless already changed)
+      if ($achievement->getGame() === $this) {
+        $achievement->setGame(null);
+      }
+    }
 
     return $this;
   }
