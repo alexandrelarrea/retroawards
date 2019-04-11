@@ -5,7 +5,7 @@ then
     echo "### Running deploy run ###"
     git stash save -u
     git pull --ff-only
-    #php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration --all-or-nothing # todo : setup database
+    php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration --all-or-nothing
     composer install --no-dev --optimize-autoloader
     npm install --production
     npm run build
