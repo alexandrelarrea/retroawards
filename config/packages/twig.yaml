@@ -3,4 +3,4 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
-        ra_domain: '%app.ra_domain%'
+        ra_domain: '%env(RA_DOMAIN)%'
