@@ -26,3 +26,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Service\RAService:
+        arguments:
+            $key: '%env(RA_API_KEY)%'
+            $url: '%env(RA_API_URL)%'
+            $user: '%env(RA_API_USER)%'
