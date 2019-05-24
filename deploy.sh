@@ -16,8 +16,14 @@ then
     echo "### Running dry run ###"
     git fetch
     git status
+    git stash save -u
     git log --oneline --decorate ..origin/master
     git diff --name-status ..origin/master
+    git checkout origin/master -- src/Migrations
+    php bin/console doctrine:migrations:status
+    php bin/console doctrine:migrations:up-to-date
+    git reset --hard
+    git stash list
 else
     echo "Error : Invalid arguments"
 fi
