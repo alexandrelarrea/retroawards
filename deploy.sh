@@ -23,8 +23,7 @@ then
     git log --oneline --decorate ..origin/master
     git diff --name-status ..origin/master
     git checkout origin/master -- src/Migrations
-    php bin/console doctrine:migrations:status
-    php bin/console doctrine:migrations:up-to-date
+    php bin/console doctrine:migrations:migrate --dry-run
     git reset --hard -q
 else
     echo "Error : Invalid arguments"
