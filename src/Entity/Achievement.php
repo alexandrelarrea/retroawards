@@ -30,6 +30,16 @@ class Achievement {
   private $retroId;
 
   /**
+   * @ORM\Column(type="string", length=255)
+   */
+  private $title;
+
+  /**
+   * @ORM\Column(type="text")
+   */
+  private $description;
+
+  /**
    * @ORM\Column(type="integer")
    */
   private $points;
@@ -37,12 +47,17 @@ class Achievement {
   /**
    * @ORM\Column(type="string", length=255)
    */
-  private $badgeEarned;
+  private $badge;
 
   /**
-   * @ORM\Column(type="string", length=255)
+   * @ORM\Column(type="integer", nullable=true)
    */
-  private $badgeLocked;
+  private $totalAwarded;
+
+  /**
+   * @ORM\Column(type="string", length=255, nullable=true)
+   */
+  private $author;
 
   /**
    * @ORM\Column(type="datetime")
@@ -87,6 +102,26 @@ class Achievement {
     return $this;
   }
 
+  public function getTitle(): ?string {
+    return $this->title;
+  }
+
+  public function setTitle(string $title): self {
+    $this->title = $title;
+
+    return $this;
+  }
+
+  public function getDescription(): ?string {
+    return $this->description;
+  }
+
+  public function setDescription(string $description): self {
+    $this->description = $description;
+
+    return $this;
+  }
+
   public function getPoints(): ?int {
     return $this->points;
   }
@@ -97,22 +132,32 @@ class Achievement {
     return $this;
   }
 
-  public function getBadgeEarned(): ?string {
-    return $this->badgeEarned;
+  public function getBadge(): ?string {
+    return $this->badge;
   }
 
-  public function setBadgeEarned(string $badgeEarned): self {
-    $this->badgeEarned = $badgeEarned;
+  public function setBadge(string $badge): self {
+    $this->badge = $badge;
 
     return $this;
   }
 
-  public function getBadgeLocked(): ?string {
-    return $this->badgeLocked;
+  public function getTotalAwarded(): ?int {
+    return $this->totalAwarded;
   }
 
-  public function setBadgeLocked(string $badgeLocked): self {
-    $this->badgeLocked = $badgeLocked;
+  public function setTotalAwarded(?int $totalAwarded): self {
+    $this->totalAwarded = $totalAwarded;
+
+    return $this;
+  }
+
+  public function getAuthor(): ?string {
+    return $this->author;
+  }
+
+  public function setAuthor(?string $author): self {
+    $this->author = $author;
 
     return $this;
   }
