@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AchievementRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Achievement {
 
@@ -76,6 +77,21 @@ class Achievement {
 
   public function __construct() {
     $this->users = new ArrayCollection();
+  }
+
+  /**
+   * @ORM\PrePersist
+   */
+  public function prePersist() {
+    $this->createdAt = new \DateTime();
+    $this->updatedAt = new \DateTime();
+  }
+
+  /**
+   * @ORM\PreUpdate
+   */
+  public function preUpdate() {
+    $this->updatedAt = new \DateTime();
   }
 
   public function getId(): ?int {

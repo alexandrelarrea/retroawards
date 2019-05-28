@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RetroGameRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class RetroGame {
 
@@ -35,6 +36,21 @@ class RetroGame {
    * @ORM\Column(type="datetime")
    */
   private $updatedAt;
+
+  /**
+   * @ORM\PrePersist
+   */
+  public function prePersist() {
+    $this->createdAt = new \DateTime();
+    $this->updatedAt = new \DateTime();
+  }
+
+  /**
+   * @ORM\PreUpdate
+   */
+  public function preUpdate() {
+    $this->updatedAt = new \DateTime();
+  }
 
   public function getId(): ?int {
     return $this->id;

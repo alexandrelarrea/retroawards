@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ConsoleRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Console {
 
@@ -70,6 +71,21 @@ class Console {
 
   public function __construct() {
     $this->games = new ArrayCollection();
+  }
+
+  /**
+   * @ORM\PrePersist
+   */
+  public function prePersist() {
+    $this->createdAt = new \DateTime();
+    $this->updatedAt = new \DateTime();
+  }
+
+  /**
+   * @ORM\PreUpdate
+   */
+  public function preUpdate() {
+    $this->updatedAt = new \DateTime();
   }
 
   public function getId(): ?int {
