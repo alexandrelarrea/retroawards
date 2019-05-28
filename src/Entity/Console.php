@@ -19,6 +19,11 @@ class Console {
   private $id;
 
   /**
+   * @ORM\Column(type="integer", nullable=true)
+   */
+  private $retroId;
+
+  /**
    * @ORM\Column(type="string", length=255)
    */
   private $title;
@@ -36,7 +41,17 @@ class Console {
   /**
    * @ORM\Column(type="string", length=255)
    */
+  private $logo;
+
+  /**
+   * @ORM\Column(type="string", length=255)
+   */
   private $image;
+
+  /**
+   * @ORM\Column(type="string", length=255)
+   */
+  private $slug;
 
   /**
    * @ORM\Column(type="datetime")
@@ -59,6 +74,16 @@ class Console {
 
   public function getId(): ?int {
     return $this->id;
+  }
+
+  public function getRetroId(): ?int {
+    return $this->retroId;
+  }
+
+  public function setRetroId(?int $retroId): self {
+    $this->retroId = $retroId;
+
+    return $this;
   }
 
   public function getTitle(): ?string {
@@ -91,12 +116,32 @@ class Console {
     return $this;
   }
 
+  public function getLogo(): ?string {
+    return $this->logo;
+  }
+
+  public function setLogo(string $logo): self {
+    $this->logo = $logo;
+
+    return $this;
+  }
+
   public function getImage(): ?string {
     return $this->image;
   }
 
   public function setImage(string $image): self {
     $this->image = $image;
+
+    return $this;
+  }
+
+  public function getSlug(): ?string {
+    return $this->slug;
+  }
+
+  public function setSlug(string $slug): self {
+    $this->slug = $slug;
 
     return $this;
   }
