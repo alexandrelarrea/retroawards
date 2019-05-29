@@ -91,7 +91,7 @@ class Game {
   private $totalPlayers;
 
   /**
-   * @ORM\Column(type="date", nullable=true)
+   * @ORM\Column(type="string", length=255, nullable=true)
    */
   private $releaseDate;
 
@@ -273,11 +273,11 @@ class Game {
     return $this;
   }
 
-  public function getReleaseDate(): ?\DateTimeInterface {
+  public function getReleaseDate(): ?string {
     return $this->releaseDate;
   }
 
-  public function setReleaseDate(?\DateTimeInterface $releaseDate): self {
+  public function setReleaseDate(?string $releaseDate): self {
     $this->releaseDate = $releaseDate;
 
     return $this;
