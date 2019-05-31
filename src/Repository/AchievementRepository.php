@@ -18,6 +18,17 @@ class AchievementRepository extends ServiceEntityRepository {
     parent::__construct($registry, Achievement::class);
   }
 
+  /**
+   * @return Achievement[] Returns an array of Achievement objects
+   */
+  public function findRandomWithLimit($limit = 1) {
+    return $this->createQueryBuilder('a')
+      ->orderBy('RAND()')
+      ->setMaxResults($limit)
+      ->getQuery()
+      ->getResult();
+  }
+
   // /**
   //  * @return Achievement[] Returns an array of Achievement objects
   //  */

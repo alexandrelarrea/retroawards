@@ -1,18 +1,19 @@
-<a href="{{ path('achievement_show', {'id': 1}) }}" class="cleanlink">
-  <div class="card bg-image border-primary mb-3" style="background-image: url('https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Images/024311.png')">
+{% set game = achievement.game %}
+<a href="{{ path('achievement_show', {'id': achievement.id}) }}" class="cleanlink">
+  <div class="card bg-image border-primary mb-3" style="background-image: url('https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Images/{{ game.icon }}')">
     <div class="bg-layer bg-layer-hover">
       <div class="row no-gutters p-0 pb-2">
         <div class="col-auto">
-          <img class="img-fluid" src="https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Badge/52389.png" width="100" alt="Spiral Mountain (5)"/>
+          <img class="img-fluid" src="https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Badge/{{ achievement.badge }}.png" width="100" alt="{{ achievement.title }}"/>
         </div>
         <div class="col text-right">
-          <img class="img-fluid" src="https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Images/024311.png" width="80" alt="Banjo-Kazooie"/>
-          <p class="card-game-title text-primary font-weight-bold m-0">Banjo-Kazooie</p>
+          <img class="img-fluid" src="https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Images/{{ game.icon }}" width="80" alt="{{ game.title }}"/>
+          <p class="card-game-title text-primary font-weight-bold m-0">{{ game.title }}</p>
         </div>
       </div>
       <div>
-        <h6 class="card-title font-weight-bold px-3">Spiral Mountain (5)</h6>
-        <p class="card-text px-3 pb-2">Get all Honeycomb Pieces in Spiral Mountain.</p>
+        <h6 class="card-title font-weight-bold px-3">{{ achievement.title ~ ' (' ~ achievement.points ~ ')' }}</h6>
+        <p class="card-text px-3 pb-2">{{ achievement.description }}</p>
       </div>
     </div>
   </div>
