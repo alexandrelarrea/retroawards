@@ -63,16 +63,14 @@ class ImportRACommand extends Command {
     $console = $this->consoleRepo->findOneByRetroId(2);
     foreach ($this->retroGameRepo->findAll() as $retroGame) {
       $gameData = $this->ras->getGameInfoExtended($retroGame->getRetroId());
-      $gameId = $this->cleanField($gameData['ID']);
-      $gameTitle = $this->cleanField($gameData['Title']);
-      $io->text($gameTitle . ' (#' . $gameId . ')');
-      $game = $this->gameRepo->findOneByRetroId($gameId);
+      $io->text($this->cleanField($gameData['Title']) . ' (#' . $this->cleanField($gameData['ID']) . ')');
+      $game = $this->gameRepo->findOneByRetroId($this->cleanField($gameData['ID']));
       if ($game === null) {
         $game = new Game();
       }
       $game->setConsole($console)
-        ->setRetroId($gameId)
-        ->setTitle($gameTitle)
+        ->setRetroId($this->cleanField($gameData['ID']))
+        ->setTitle($this->cleanField($gameData['Title']))
         ->setForumId($this->cleanField($gameData['ForumTopicID']))
         ->setGenre($this->cleanField($gameData['Genre']))
         ->setPublisher($this->cleanField($gameData['Publisher']))
