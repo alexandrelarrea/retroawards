@@ -3,27 +3,29 @@
 {% block title %}Retroawards - Achievement{% endblock %}
 
 {% block body %}
+  {% set game = achievement.game %}
+  {% set console = game.console %}
   <div class="container mt-4">
     <div class="row align-items-center mb-4">
       <div class="col-xl-2 col-md-6 my-2">
-        <a href="#" class="float-md-right" title="Spiral Mountain (5)"><img class="img-fluid" src="https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Badge/52389.png" width="150" alt="Spiral Mountain (5)"/></a>
+        <a href="#" class="float-md-right" title="{{ achievement.titlePoints }}"><img class="img-fluid" src="{{ badge_path ~ '/' ~ achievement.getBadgeImage() }}" width="150" alt="{{ achievement.titlePoints }}"/></a>
       </div>
       <div class="col-xl-3 col-md-6 my-2">
-        <h1 class="h3 mb-3">Spiral Mountain (5)</h1>
-        <p>Get all Honeycomb Pieces in Spiral Mountain.</p>
+        <h1 class="h3 mb-3">{{ achievement.titlePoints }}</h1>
+        <p>{{ achievement.description }}</p>
       </div>
       <div class="col-xl-3 col-md-6 my-2">
-        <a href="#" class="float-md-right" title="Banjo-Kazooie"><img class="img-fluid" src="https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Images/015922.png" alt="Banjo-Kazooie"/></a>
+        <a href="#" class="float-md-right" title="{{ game.title }}"><img class="img-fluid" src="{{ game_path ~ '/' ~ game.boxArt }}" alt="{{ game.title }}"/></a>
       </div>
       <div class="col my-2">
-        <div class="bg-image" style="background-image: url('https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Images/024311.png')">
+        <div class="bg-image" style="background-image: url('{{ game_path ~ '/' ~ game.getIconImage() }}')">
           <h2 class="bg-layer border border-primary h4 font-weight-bold text-primary text-center py-1">
-            <img class="img-fluid align-middle" src="{{ asset('build/img/consoles/nintendo_64/icon.png') }}" width="8%" alt="Nintendo 64"/>
-            <span class="align-middle">Banjo-Kazooie</span>
+            <img class="img-fluid align-middle" src="{{ asset(console_path ~ '/' ~ console.slug ~ '/' ~ console.icon) }}" width="8%" alt="{{ console.title }}"/>
+            <span class="align-middle">{{ game.title }}</span>
           </h2>
         </div>
-        <a href="#" title="Banjo-Kazooie"><img class="img-fluid" src="https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Images/011034.png" width="49%" alt="Banjo-Kazooie"/></a>
-        <a href="#" title="Banjo-Kazooie"><img class="img-fluid" src="https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Images/011031.png" width="49%" alt="Banjo-Kazooie"/></a>
+        <a href="#" title="{{ game.title }}"><img class="img-fluid" src="{{ game_path ~ '/' ~ game.titleScreen }}" width="49%" alt="{{ game.title }}"/></a>
+        <a href="#" title="{{ game.title }}"><img class="img-fluid" src="{{ game_path ~ '/' ~ game.gameScreen }}" width="49%" alt="{{ game.title }}"/></a>
       </div>
     </div>
   </div>
