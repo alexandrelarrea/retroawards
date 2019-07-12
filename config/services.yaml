@@ -6,9 +6,10 @@
 parameters:
     locale: 'en'
     publicPath: '%kernel.project_dir%/public'
-    mediaPath: '%publicPath%/upload'
+    mediaPath: '/upload'
     gamePath: '%mediaPath%/game'
     badgePath: '%mediaPath%/badge'
+    consolePath: '/build/img/consoles'
 
 services:
     # default configuration for services in *this* file
@@ -38,7 +39,7 @@ services:
 
     App\Service\MediaManager:
         arguments:
-            $gamePath: '%gamePath%'
-            $badgePath: '%badgePath%'
+            $gamePath: '%publicPath%%gamePath%'
+            $badgePath: '%publicPath%%badgePath%'
             $raImgUrl: '%env(RA_IMG_URL)%'
             $raBadgeUrl: '%env(RA_BADGE_URL)%'

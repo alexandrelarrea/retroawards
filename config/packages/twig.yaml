@@ -4,3 +4,6 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         ra_domain: '%env(RA_DOMAIN)%'
+        game_path: '%gamePath%'
+        badge_path: '%badgePath%'
+        console_path: '%consolePath%'

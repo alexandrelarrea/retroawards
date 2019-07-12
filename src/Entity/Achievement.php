@@ -128,6 +128,10 @@ class Achievement {
     return $this;
   }
 
+  public function getTitlePoints(): ?string {
+    return $this->title . ' (' . $this->points . ')';
+  }
+
   public function getDescription(): ?string {
     return $this->description;
   }
