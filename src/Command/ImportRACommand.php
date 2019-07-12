@@ -8,6 +8,7 @@ use App\Repository\AchievementRepository;
 use App\Repository\ConsoleRepository;
 use App\Repository\GameRepository;
 use App\Repository\RetroGameRepository;
+use App\Service\MediaManager;
 use App\Service\RAService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Console\Command\Command;
@@ -23,15 +24,17 @@ class ImportRACommand extends Command {
   protected static $defaultName = 'app:import-ra';
   protected $ras;
   protected $em;
+  protected $mediaManager;
   protected $retroGameRepo;
   protected $consoleRepo;
   protected $gameRepo;
   protected $achievementRepo;
 
-  public function __construct(?string $name = null, RAService $ras, ObjectManager $em, RetroGameRepository $retroGameRepo, ConsoleRepository $consoleRepo, GameRepository $gameRepo, AchievementRepository $achievementRepo) {
+  public function __construct(?string $name = null, RAService $ras, ObjectManager $em, MediaManager $mediaManager, RetroGameRepository $retroGameRepo, ConsoleRepository $consoleRepo, GameRepository $gameRepo, AchievementRepository $achievementRepo) {
     parent::__construct($name);
     $this->ras = $ras;
     $this->em = $em;
+    $this->mediaManager = $mediaManager;
     $this->retroGameRepo = $retroGameRepo;
     $this->consoleRepo = $consoleRepo;
     $this->gameRepo = $gameRepo;
@@ -83,24 +86,26 @@ class ImportRACommand extends Command {
         ->setReleaseDate($this->cleanField($gameData['Released']));
 
       foreach ($gameData['Achievements'] as $achievementData) {
-        $achievementId = $this->cleanField($achievementData['ID']);
-        $achievementTitle = $this->cleanField($achievementData['Title']);
-        $io->text(' - ' . $achievementTitle . ' (#' . $achievementId . ')');
-        $achievement = $this->achievementRepo->findOneByRetroId($achievementId);
+        $io->text(' - ' . $this->cleanField($achievementData['Title']) . ' (#' . $this->cleanField($achievementData['ID']) . ')');
+        $achievement = $this->achievementRepo->findOneByRetroId($this->cleanField($achievementData['ID']));
         if ($achievement === null) {
           $achievement = new Achievement();
         }
         $achievement->setGame($game)
-          ->setRetroId($achievementId)
-          ->setTitle($achievementTitle)
+          ->setRetroId($this->cleanField($achievementData['ID']))
+          ->setTitle($this->cleanField($achievementData['Title']))
           ->setDescription($this->cleanField($achievementData['Description']))
           ->setPoints($this->cleanField($achievementData['Points']))
           ->setBadge($this->cleanField($achievementData['BadgeName']))
           ->setTotalAwarded($this->cleanField($achievementData['NumAwardedHardcore']))
           ->setAuthor($this->cleanField($achievementData['Author']));
 
+        $this->mediaManager->downloadAchievementBadges($achievement);
+
         $this->em->persist($achievement);
       }
+
+      $this->mediaManager->downloadGameImages($game);
 
       $this->em->persist($game);
       sleep(10);

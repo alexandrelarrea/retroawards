@@ -223,6 +223,13 @@ class Game {
     return $this;
   }
 
+  public function getIconImage($locked = false) {
+    if ($locked) {
+      return substr_replace($this->icon, '_lock', strrpos($this->icon, '.'), 0);
+    }
+    return $this->icon;
+  }
+
   public function getBoxArt(): ?string {
     return $this->boxArt;
   }

@@ -5,6 +5,10 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    publicPath: '%kernel.project_dir%/public'
+    mediaPath: '%publicPath%/upload'
+    gamePath: '%mediaPath%/game'
+    badgePath: '%mediaPath%/badge'
 
 services:
     # default configuration for services in *this* file
@@ -31,3 +35,10 @@ services:
             $key: '%env(RA_API_KEY)%'
             $url: '%env(RA_API_URL)%'
             $user: '%env(RA_API_USER)%'
+
+    App\Service\MediaManager:
+        arguments:
+            $gamePath: '%gamePath%'
+            $badgePath: '%badgePath%'
+            $raImgUrl: '%env(RA_IMG_URL)%'
+            $raBadgeUrl: '%env(RA_BADGE_URL)%'

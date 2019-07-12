@@ -158,6 +158,10 @@ class Achievement {
     return $this;
   }
 
+  public function getBadgeImage($locked = false) {
+    return $this->badge . ($locked ? '_lock' : '') . '.png';
+  }
+
   public function getTotalAwarded(): ?int {
     return $this->totalAwarded;
   }
